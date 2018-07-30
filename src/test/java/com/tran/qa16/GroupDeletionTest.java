@@ -1,4 +1,4 @@
-package com.tr;
+package com.tran.qa16;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -12,13 +12,10 @@ import java.util.concurrent.TimeUnit;
 
 public class GroupDeletionTest extends TestBase {
     @Test
-    public void deletionLastGroupTest(){
+    public void test1(){
         goToGroupsPage();
-        if(!isGroupPresent()){
-            createGroup();
-        }
         int before = getGroupsCount();
-        selectGroupByIndex(before-1); //last group
+        selectGroupByIndex(before-1);
         groupDeletion();
         returnToGroupsPage();
         int after = getGroupsCount();
@@ -26,18 +23,4 @@ public class GroupDeletionTest extends TestBase {
         Assert.assertEquals(after, before-1);
     }
 
-    @Test
-    public void delitionFirstGroupTest(){
-        goToGroupsPage();
-        if(!isGroupPresent()){
-            createGroup();
-        }
-        int before = getGroupsCount();
-        selectGroup();               //first group
-        groupDeletion();
-        returnToGroupsPage();
-        int after = getGroupsCount();
-
-        Assert.assertEquals(after, before-1);
-    }
 }

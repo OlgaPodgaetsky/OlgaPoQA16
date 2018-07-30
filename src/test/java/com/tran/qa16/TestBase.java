@@ -1,10 +1,7 @@
-package com.tr;
+package com.tran.qa16;
 
-import com.tr.GroupData;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -15,8 +12,8 @@ public class TestBase {
     WebDriver wd;
 
     @BeforeClass
-    public void setUp() {
-        wd = new ChromeDriver();
+    public void setUp(){
+        wd = new FirefoxDriver();
         wd.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
         wd.navigate().to("http://localhost/addressbook");
@@ -29,12 +26,12 @@ public class TestBase {
         wd.findElement(By.name("pass")).clear();
         wd.findElement(By.name("pass")).sendKeys("secret");
 
-        //click on the button login
+    //click on the button login
         wd.findElement(By.xpath("//*[@value='Login']")).click();
     }
 
     @AfterClass
-    public void tearDown() {
+    public void tearDown(){
         wd.quit();
     }
 
@@ -49,10 +46,8 @@ public class TestBase {
     public void selectGroup() {
         wd.findElement(By.name("selected[]")).click();
     }
-
     public void selectGroupByIndex(int ind) {
-        wd.findElements(By.name("selected[]")).get(ind).click();
-        //wd.findElements(By.name("selected[]")).get(ind).click();
+       wd.findElements(By.name("selected[]")).get(ind).click();
     }
 
     public void goToGroupsPage() {
@@ -93,39 +88,4 @@ public class TestBase {
     public int getGroupsCount() {
         return wd.findElements(By.cssSelector("span.group")).size();
     }
-
-    public boolean isElementPresent(By locator) {
-        try {
-            wd.findElement(locator);
-            return true;
-        } catch (NoSuchElementException e) {
-            return false;
-        }
-
-    }
-
-
-        public boolean isElementsPresent (By locator){
-            return wd.findElements(locator).size() > 0;
-
-        }
-
-        public boolean isGroupPresent () {
-            return isElementPresent(By.name("selected[]"));
-        }
-
-        public void createGroup () {
-            initGroupCreation();
-            fillGroupForm(
-                    new GroupData()
-                            .setGroupName("TestGroupName1")
-                            .setGroupHeader("TestGroupHeader1")
-                            .setGroupFooter("TestGroupFooter1"));
-            confirmGroupCreation();
-            returnToGroupsPage();
-            int after = getGroupsCount();
-
-        }
-
-
 }

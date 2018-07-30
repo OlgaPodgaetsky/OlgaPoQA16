@@ -1,4 +1,4 @@
-package com.tr;
+package com.tran.qa16;
 
 public class GroupData {
     private  String groupName;
