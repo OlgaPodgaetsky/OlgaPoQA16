@@ -1,22 +1,23 @@
-package com.tr;
+package com.tran16.tests;
 
+import com.tran16.model.GroupData;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class GroupCreationTest  extends TestBase {
     @Test
     public  void testGroupCreation(){
-        goToGroupsPage();
-        int before = getGroupsCount();
-        initGroupCreation();
-        fillGroupForm(
+        app.getGroupHelper().goToGroupsPage();
+        int before = app.getGroupHelper().getGroupsCount();
+        app.getGroupHelper().initGroupCreation();
+        app.getGroupHelper().fillGroupForm(
                 new GroupData()
                         .setGroupName("TestGroupName1")
                         .setGroupHeader("TestGroupHeader1")
                         .setGroupFooter("TestGroupFooter1"));
-        confirmGroupCreation();
-        returnToGroupsPage();
-        int after = getGroupsCount();
+        app.getGroupHelper().confirmGroupCreation();
+        app.getGroupHelper().returnToGroupsPage();
+        int after = app.getGroupHelper().getGroupsCount();
 
         Assert.assertEquals(after, before+1);
     }
